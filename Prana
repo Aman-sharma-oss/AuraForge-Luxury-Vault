@@ -1,62 +1,3 @@
-/* AMANDEEP HUB: AURA-FORGE 
-  PHASE 1: THE THERMAL HANDSHAKE
-*/
-
-import React, { useEffect, useState } from 'react';
-
-const AuraForge = () => {
-  const [isSiddhiActive, setIsSiddhiActive] = useState(false);
-
-  const startTrial = () => {
-    // Check Prana (Battery) before starting the Forge
-    if ('getBattery' in navigator) {
-      (navigator as any).getBattery().then((battery: any) => {
-        if (battery.level > 0.15) { // Protect the phone's heart
-          setIsSiddhiActive(true);
-          // Start the Ghost Vibration (100ms pulse, 2 seconds silence)
-          const ghostVibration = [100, 2000, 100, 2000];
-          navigator.vibrate(ghostVibration);
-        } else {
-          console.log("Not enough Prana to start the Forge.");
-        }
-      });
-    }
-  };
-
-  return (to return (
-    <div style={styles.vaultContainer} onClick={startTrial}>
-      <h1 style={styles.logo}>AMANDEEP</h1>
-      <p style={styles.status}>
-        {isSiddhiActive ? "Siddhi Active - Feeling the Halo" : "Touch Logo to Start Forge"}
-      </p>
-    </div>
-  );
-};
-
-const styles = {
-  vaultContainer: {
-    height: '100vh',
-    backgroundColor: '#000', // The Shunya (Zero) background
-    display: 'flex',
-    flexDirection: 'column' as 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#D4AF37', // Luxury Gold
-  },
-  logo: {
-    fontSize: '3rem',
-    letterSpacing: '10px',
-    textShadow: '0 0 20px #D4AF37', // The Golden Glow
-  },
-  status: {
-    marginTop: '20px',
-    fontSize: '0.8rem',
-    opacity: 0.6,
-  }
-};
-
-export default AuraForge;
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,40 +6,38 @@ export default AuraForge;
     <title>Amandeep AuraForge</title>
     <style>
         body { margin: 0; background: #000; color: #D4AF37; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        #logo { font-size: 3rem; letter-spacing: 12px; text-shadow: 0 0 20px #D4AF37; cursor: pointer; transition: 0.5s; }
-        #status { position: absolute; bottom: 20%; font-size: 0.7rem; opacity: 0.5; letter-spacing: 2px; }
+        #logo { font-size: 3.5rem; letter-spacing: 12px; text-shadow: 0 0 20px #D4AF37; cursor: pointer; transition: 0.5s; user-select: none; -webkit-tap-highlight-color: transparent; }
+        #status { position: absolute; bottom: 15%; font-size: 0.8rem; opacity: 0.6; letter-spacing: 3px; text-align: center; width: 100%; text-transform: uppercase; }
     </style>
 </head>
 <body onclick="activateSiddhi()">
 
     <div id="logo">AMANDEEP</div>
-    <div id="status">TOUCH TO START FORGE</div>
+    <div id="status">TOUCH LOGO TO START FORGE</div>
 
     <script>
         function activateSiddhi() {
             const status = document.getElementById('status');
             const logo = document.getElementById('logo');
 
-            // 1. The Prana Check (Battery)
-            if ('getBattery' in navigator) {
-                navigator.getBattery().then(function(battery) {
-                    if (battery.level > 0.10) {
-                        // 2. The God Energy Wake-up
-                        status.innerText = "SIDDHI ACTIVE - HEALING DNA";
-                        logo.style.textShadow = "0 0 40px #D4AF37, 0 0 60px #FFF";
-                        
-                        // 3. The Ghost Vibration (The Hum)
-                        // 100ms pulse, 2 seconds shunya (silence)
-                        if (navigator.vibrate) {
-                            navigator.vibrate([100, 2000, 100, 2000]);
-                        }
-                    } else {
-                        status.innerText = "LOW PRANA - CONNECT TO SOURCE";
-                    }
-                });
+            // The Amandeep Rhythm: 12346 789 -> 1s Silence -> 12346 989
+            const sequence = [
+                100, 200, 300, 400, 600, 700, 800, 900, 
+                1000, 
+                100, 200, 300, 400, 600, 900, 800, 900
+            ];
+
+            if (navigator.vibrate) {
+                navigator.vibrate(sequence);
+                status.innerText = "SIDDHI ACTIVE: 12346... 989";
+                logo.style.textShadow = "0 0 50px #D4AF37, 0 0 100px #FFF";
+                
+                setTimeout(() => {
+                    logo.style.textShadow = "0 0 20px #D4AF37";
+                    status.innerText = "FORGE COMPLETE - VAULT LOCKED";
+                }, 8000);
             }
         }
     </script>
 </body>
 </html>
-
