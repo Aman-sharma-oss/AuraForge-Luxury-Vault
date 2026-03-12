@@ -23,7 +23,7 @@ const AuraForge = () => {
     }
   };
 
-  return (
+  return (to return (
     <div style={styles.vaultContainer} onClick={startTrial}>
       <h1 style={styles.logo}>AMANDEEP</h1>
       <p style={styles.status}>
@@ -56,3 +56,49 @@ const styles = {
 };
 
 export default AuraForge;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Amandeep AuraForge</title>
+    <style>
+        body { margin: 0; background: #000; color: #D4AF37; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        #logo { font-size: 3rem; letter-spacing: 12px; text-shadow: 0 0 20px #D4AF37; cursor: pointer; transition: 0.5s; }
+        #status { position: absolute; bottom: 20%; font-size: 0.7rem; opacity: 0.5; letter-spacing: 2px; }
+    </style>
+</head>
+<body onclick="activateSiddhi()">
+
+    <div id="logo">AMANDEEP</div>
+    <div id="status">TOUCH TO START FORGE</div>
+
+    <script>
+        function activateSiddhi() {
+            const status = document.getElementById('status');
+            const logo = document.getElementById('logo');
+
+            // 1. The Prana Check (Battery)
+            if ('getBattery' in navigator) {
+                navigator.getBattery().then(function(battery) {
+                    if (battery.level > 0.10) {
+                        // 2. The God Energy Wake-up
+                        status.innerText = "SIDDHI ACTIVE - HEALING DNA";
+                        logo.style.textShadow = "0 0 40px #D4AF37, 0 0 60px #FFF";
+                        
+                        // 3. The Ghost Vibration (The Hum)
+                        // 100ms pulse, 2 seconds shunya (silence)
+                        if (navigator.vibrate) {
+                            navigator.vibrate([100, 2000, 100, 2000]);
+                        }
+                    } else {
+                        status.innerText = "LOW PRANA - CONNECT TO SOURCE";
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+
