@@ -11,27 +11,17 @@
     </style>
 </head>
 <body onclick="activateSiddhi()">
-
     <div id="logo">AMANDEEP</div>
     <div id="status">TOUCH LOGO TO START FORGE</div>
-
     <script>
         function activateSiddhi() {
             const status = document.getElementById('status');
             const logo = document.getElementById('logo');
-
-            // The Amandeep Rhythm: 12346 789 -> 1s Silence -> 12346 989
-            const sequence = [
-                100, 200, 300, 400, 600, 700, 800, 900, 
-                1000, 
-                100, 200, 300, 400, 600, 900, 800, 900
-            ];
-
+            const sequence = [100, 200, 300, 400, 600, 700, 800, 900, 1000, 100, 200, 300, 400, 600, 900, 800, 900];
             if (navigator.vibrate) {
                 navigator.vibrate(sequence);
                 status.innerText = "SIDDHI ACTIVE: 12346... 989";
                 logo.style.textShadow = "0 0 50px #D4AF37, 0 0 100px #FFF";
-                
                 setTimeout(() => {
                     logo.style.textShadow = "0 0 20px #D4AF37";
                     status.innerText = "FORGE COMPLETE - VAULT LOCKED";
