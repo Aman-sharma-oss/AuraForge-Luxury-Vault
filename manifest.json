@@ -1,0 +1,15 @@
+{
+  "short_name": "AuraVault",
+  "name": "AuraForge Luxury Vault",
+  "icons": [
+    {
+      "src": "https://aman-sharma-oss.github.io/AuraForge-Luxury-Vault/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/AuraForge-Luxury-Vault/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000"
+}
