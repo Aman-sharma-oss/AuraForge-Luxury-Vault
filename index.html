@@ -2,26 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amandeep AuraForge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>AuraForge Vault</title>
     <style>
-        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; font-family: sans-serif; }
-        #logo { font-size: 3.5rem; font-weight: bold; color: #D4AF37; text-shadow: 0 0 20px rgba(212,175,55,0.8); letter-spacing: 5px; cursor: pointer; transition: transform 0.3s; }
-        #status { position: absolute; bottom: 20px; color: #555; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; }
+        body { margin: 0; background: #000; color: #D4AF37; font-family: sans-serif; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #logo { font-size: 3rem; font-weight: bold; text-shadow: 0 0 20px rgba(212,175,55,0.5); letter-spacing: 5px; cursor: pointer; margin-bottom: 20px; }
+        .vault-container { display: none; width: 85%; max-width: 400px; animation: fadeIn 1s; }
+        input { background: #111; border: 1px solid #D4AF37; color: #D4AF37; padding: 15px; width: 100%; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; outline: none; }
+        button { background: #D4AF37; color: #000; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        #code-list { margin-top: 30px; width: 100%; max-height: 200px; overflow-y: auto; font-size: 0.9rem; border-top: 1px solid #333; padding-top: 10px; }
+        .code-item { padding: 10px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #instruction { font-size: 0.7rem; color: #555; letter-spacing: 2px; position: fixed; bottom: 30px; }
     </style>
 </head>
-<body onclick="activateSiddhi()">
-    <div id="logo">AMANDEEP</div>
-    <div id="status">TOUCH LOGO TO START</div>
+<body>
+
+    <div id="logo" onclick="openVault()">AMANDEEP</div>
+    <div id="instruction">TOUCH TO ENTER VAULT</div>
+
+    <div id="vault-container" class="vault-container">
+        <input type="text" id="divineInput" placeholder="ENTER DIVINE CODE...">
+        <button onclick="saveCode()">Seal into Vault</button>
+        <div id="code-list"></div>
+    </div>
 
     <script>
-        function activateSiddhi() {
-            const status = document.getElementById('status');
-            const logo = document.getElementById('logo');
-            status.innerText = "VAULT ACTIVE";
-            status.style.color = "#D4AF37";
-            logo.style.transform = "scale(1.1)";
-            setTimeout(() => { logo.style.transform = "scale(1)"; }, 200);
+        function openVault() {
+            document.getElementById('logo').style.transform = "scale(0.8)";
+            document.getElementById('instruction').style.display = "none";
+            document.getElementById('vault-container').style.display = "block";
+            loadCodes();
+        }
+
+        function saveCode() {
+            const input = document.getElementById('divineInput');
+            if(!input.value) return;
+            const codes = JSON.parse(localStorage.getItem('aura_codes') || '[]');
+            codes.push({text: input.value, date: new Date().toLocaleDateString()});
+            localStorage.setItem('aura_codes', JSON.stringify(codes));
+            input.value = '';
+            loadCodes();
+        }
+
+        function loadCodes() {
+            const list = document.getElementById('code-list');
+            const codes = JSON.parse(localStorage.getItem('aura_codes') || '[]');
+            list.innerHTML = codes.map(c => `<div class="code-item"><span>${c.text}</span><span style="color:#555">${c.date}</span></div>`).reverse().join('');
         }
     </script>
 </body>
