@@ -1,0 +1,58 @@
+/* AMANDEEP HUB: AURA-FORGE 
+  PHASE 1: THE THERMAL HANDSHAKE
+*/
+
+import React, { useEffect, useState } from 'react';
+
+const AuraForge = () => {
+  const [isSiddhiActive, setIsSiddhiActive] = useState(false);
+
+  const startTrial = () => {
+    // Check Prana (Battery) before starting the Forge
+    if ('getBattery' in navigator) {
+      (navigator as any).getBattery().then((battery: any) => {
+        if (battery.level > 0.15) { // Protect the phone's heart
+          setIsSiddhiActive(true);
+          // Start the Ghost Vibration (100ms pulse, 2 seconds silence)
+          const ghostVibration = [100, 2000, 100, 2000];
+          navigator.vibrate(ghostVibration);
+        } else {
+          console.log("Not enough Prana to start the Forge.");
+        }
+      });
+    }
+  };
+
+  return (
+    <div style={styles.vaultContainer} onClick={startTrial}>
+      <h1 style={styles.logo}>AMANDEEP</h1>
+      <p style={styles.status}>
+        {isSiddhiActive ? "Siddhi Active - Feeling the Halo" : "Touch Logo to Start Forge"}
+      </p>
+    </div>
+  );
+};
+
+const styles = {
+  vaultContainer: {
+    height: '100vh',
+    backgroundColor: '#000', // The Shunya (Zero) background
+    display: 'flex',
+    flexDirection: 'column' as 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#D4AF37', // Luxury Gold
+  },
+  logo: {
+    fontSize: '3rem',
+    letterSpacing: '10px',
+    textShadow: '0 0 20px #D4AF37', // The Golden Glow
+  },
+  status: {
+    marginTop: '20px',
+    fontSize: '0.8rem',
+    opacity: 0.6,
+  }
+};
+
+export default AuraForge;
